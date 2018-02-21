@@ -2,7 +2,9 @@
 
 namespace Tests\Browser;
 
+use App\Page;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Log;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
@@ -47,6 +49,27 @@ class PageTest extends DuskTestCase
                 ->press('salvar')
                 ->assertPathIs('/pages')
                 ->assertSee('Sobre nós');
+        });
+    }
+
+    /**
+     * Test remove page
+     *
+     * @throws \Exception
+     * @throws \Throwable
+     */
+    public function testRemovePage()
+    {
+        $page = factory(Page::class)->create([
+            'title' => 'Página cadastrada para teste'
+        ]);
+
+        $this->browse(function (Browser $browser) use ($page) {
+            $browser->visit('/pages/' . $page->id)
+                ->assertSee('remover')
+                ->press('remover')
+                ->assertPathIs('/pages')
+                ->assertDontSee('Página cadastrada para teste');
         });
     }
 }

@@ -28,9 +28,11 @@
                                   style="display: inline-block">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
-                                <input type="submit"
-                                       value="Remover"
-                                       class="btn btn-danger">
+                                <button type="submit"
+                                        id="remover"
+                                        value="remover"
+                                        class="btn btn-danger">remover
+                                </button>
                             </form>
                         </div>
                     </div>
